@@ -17,15 +17,18 @@ import co.bagga.demo500px.R;
 public class ImageCollectionViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView mProductImageView;
-    private TextView mProductNameTextView, mFollowersCountImageView ;
+    private TextView mProductNameTextView, mFollowersCountTextView;
 
     public ImageCollectionViewHolder(View itemView) {
         super(itemView);
 
         mProductImageView = itemView.findViewById(R.id.product_image);
         mProductNameTextView = itemView.findViewById(R.id.product_name);
-        mFollowersCountImageView = itemView.findViewById(R.id.follower_count);
+        mFollowersCountTextView = itemView.findViewById(R.id.follower_count);
     }
 
-    public void updateView(Photo photo) {}
+    public void updateView(Photo photo) {
+        mProductNameTextView.setText(photo.getName());
+        mFollowersCountTextView.setText(photo.getFollowers_count());
+    }
 }
