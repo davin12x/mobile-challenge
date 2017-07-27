@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import co.bagga.demo500px.Model.Photo;
 import co.bagga.demo500px.R;
 
@@ -29,6 +31,7 @@ public class ImageCollectionViewHolder extends RecyclerView.ViewHolder {
 
     public void updateView(Photo photo) {
         mProductNameTextView.setText(photo.getName());
-        mFollowersCountTextView.setText(photo.getFollowers_count());
+        mFollowersCountTextView.setText(photo.getVotes_count());
+        Picasso.with(itemView.getContext()).load(photo.getImages()[0].getUrl()).into(mProductImageView);
     }
 }

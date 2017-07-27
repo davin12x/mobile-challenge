@@ -2,20 +2,27 @@ package co.bagga.demo500px.Network;
 
 import android.content.Context;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import co.bagga.demo500px.Events.PhotoSearchHttpResponseEvent;
 import co.bagga.demo500px.Interfaces.HttpCallBack;
+import co.bagga.demo500px.Model.MainPhoto;
 import co.bagga.demo500px.Model.Photo;
 
-class PhotoHttpApi {
+public class PhotoHttpApi {
 
-    private static ArrayList<Photo> photos;
+    public static ArrayList<Photo> photos;
 
     private static Context context;
 
     private static final PhotoHttpApi ourInstance = new PhotoHttpApi();
 
-    static PhotoHttpApi getInstance(Context context) {
+    public static PhotoHttpApi getInstance(Context context) {
         if (photos == null) {
             photos = new ArrayList<>();
         }
@@ -31,7 +38,11 @@ class PhotoHttpApi {
                 .buildPhotoSearchHttpRequest(searchName, imageSize, new HttpCallBack() {
                     @Override
                     public void onHttpRequestResponse(String response, Boolean isSuccess) {
-
+                        MainPhoto mainPhoto = new Gson().fromJson(response, MainPhoto.class);
+                        if (mainPhoto.getPhotos() != null) {
+                            Collections.addAll(photos, mainPhoto.getPhotos());
+                        }
+                        EventBus.getDefault().post(new PhotoSearchHttpResponseEvent());
                     }
                 }));
     }
