@@ -1,5 +1,6 @@
 package co.bagga.demo500px.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -43,8 +44,8 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
             public void onClick(View view) {
                 Context context = holder.itemView.getContext();
                 Intent photoDetailActivity = new Intent(context, PhotoDetailActivity.class);
-                photoDetailActivity.putExtra(Constants.IMAGE_POSITION, position);
-                context.startActivity(photoDetailActivity);
+                photoDetailActivity.putExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, holder.getAdapterPosition());
+                ((Activity)context).startActivityForResult(photoDetailActivity, Constants.IMAGE_REQUEST_INTENT_CODE);
             }
         });
     }

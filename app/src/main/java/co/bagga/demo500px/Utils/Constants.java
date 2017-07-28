@@ -6,5 +6,8 @@ public class Constants {
     public static final String CONSUMER_KEY_URL = "uKaO1LK8rqYBCNVhnEUSYzqrECw72ZFNUXeHP37u";
 
     /*Bundle Keys*/
-    public final static String IMAGE_POSITION = "image_position";
+    public final static String IMAGE_POSITION_BUNDLE_KEY = "image_position";
+
+    /*Intent Codes*/
+    public final static int IMAGE_REQUEST_INTENT_CODE = 100;
 }

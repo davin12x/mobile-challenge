@@ -1,5 +1,7 @@
 package co.bagga.demo500px.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,12 +18,14 @@ import co.bagga.demo500px.Events.PhotoSearchHttpResponseEvent;
 import co.bagga.demo500px.Model.Photo;
 import co.bagga.demo500px.Network.PhotoHttpApi;
 import co.bagga.demo500px.R;
+import co.bagga.demo500px.Utils.Constants;
 import co.bagga.demo500px.Utils.PaginationScrollListener;
 
 public class PhotoCollectionActivity extends AppCompatActivity {
 
     private ImageCollectionAdapter imageCollectionAdapter;
     private int totalPagesCount = 0;
+    private RecyclerView mImageCollectionRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class PhotoCollectionActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        RecyclerView mImageCollectionRecyclerView = (RecyclerView)findViewById(R.id.imageCollectionRecylerView);
+        mImageCollectionRecyclerView = (RecyclerView)findViewById(R.id.imageCollectionRecylerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mImageCollectionRecyclerView.setLayoutManager(gridLayoutManager);
         mImageCollectionRecyclerView.setHasFixedSize(true);
@@ -85,4 +89,14 @@ public class PhotoCollectionActivity extends AppCompatActivity {
         imageCollectionAdapter.updateAdapter(photos);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.IMAGE_REQUEST_INTENT_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                int imagePosition = data.getIntExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, 0);
+                mImageCollectionRecyclerView.smoothScrollToPosition(imagePosition);
+            }
+        }
+    }
 }

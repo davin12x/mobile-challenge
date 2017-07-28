@@ -11,6 +11,7 @@ public class Photo {
     private String name;
     private int votes_count;
     private Image[] images;
+    private User user;
 
     public String getName() {
         return name;
@@ -35,5 +36,13 @@ public class Photo {
 
     public void setVotes_count(int votes_count) {
         this.votes_count = votes_count;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
