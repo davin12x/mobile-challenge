@@ -85,6 +85,10 @@ public class PhotoCollectionActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    /***
+     * On http response received update adapter
+     * @param event contain result of http response in bool
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPhotoSearchHttpResponseReceived(PhotoSearchHttpResponseEvent event) {
         if (event.responseStatus) {

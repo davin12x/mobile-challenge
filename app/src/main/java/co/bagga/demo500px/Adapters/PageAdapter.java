@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import co.bagga.demo500px.Interfaces.PageChangeListener;
 import co.bagga.demo500px.Model.Photo;
-import co.bagga.demo500px.Network.PhotoHttpApi;
 import co.bagga.demo500px.R;
 
 public class PageAdapter extends PagerAdapter {
@@ -27,7 +26,7 @@ public class PageAdapter extends PagerAdapter {
     public PageAdapter(Context context, ArrayList<Photo> photos, PageChangeListener pageChangeListener) {
         this.pageChangeListener = pageChangeListener;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.photos = PhotoHttpApi.photos;
+        this.photos = photos;
     }
 
     @Override
@@ -47,7 +46,9 @@ public class PageAdapter extends PagerAdapter {
         ImageView imageView = itemView.findViewById(R.id.pager_image_view);
 
         Photo photo = photos.get(position);
-        Picasso.with(itemView.getContext()).load(photo.getImages()[0].getUrl()).into(imageView);
+        if (photo.getImages().length != 0) {
+            Picasso.with(itemView.getContext()).load(photo.getImages()[0].getUrl()).into(imageView);
+        }
 
         container.addView(itemView);
 

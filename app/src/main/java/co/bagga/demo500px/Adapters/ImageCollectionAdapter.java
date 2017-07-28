@@ -43,11 +43,15 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
             @Override
             public void onClick(View view) {
                 Context context = holder.itemView.getContext();
-                Intent photoDetailActivity = new Intent(context, PhotoDetailActivity.class);
-                photoDetailActivity.putExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, holder.getAdapterPosition());
-                ((Activity) context).startActivityForResult(photoDetailActivity, Constants.IMAGE_REQUEST_INTENT_CODE);
+                startPhotoDetailActivity(context, holder.getAdapterPosition());
             }
         });
+    }
+
+    private void startPhotoDetailActivity(Context context, int adapterPosition) {
+        Intent photoDetailActivity = new Intent(context, PhotoDetailActivity.class);
+        photoDetailActivity.putExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, adapterPosition);
+        ((Activity) context).startActivityForResult(photoDetailActivity, Constants.IMAGE_REQUEST_INTENT_CODE);
     }
 
     @Override

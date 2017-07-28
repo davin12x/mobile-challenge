@@ -32,6 +32,8 @@ public class ImageCollectionViewHolder extends RecyclerView.ViewHolder {
     public void updateView(Photo photo) {
         mProductNameTextView.setText(photo.getName());
         mFollowersCountTextView.setText(photo.getVotes_count());
-        Picasso.with(itemView.getContext()).load(photo.getImages()[0].getUrl()).into(mProductImageView);
+        if (photo.getImages().length != 0) {
+            Picasso.with(itemView.getContext()).load(photo.getImages()[0].getUrl()).into(mProductImageView);
+        }
     }
 }
