@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ public class PhotoDetailActivity extends AppCompatActivity implements PageChange
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         prepareViews();
 
@@ -42,6 +42,10 @@ public class PhotoDetailActivity extends AppCompatActivity implements PageChange
             throw new RuntimeException("Must pass image position");
         }
 
+        prepareViewPager(bundle);
+    }
+
+    private void prepareViewPager(Bundle bundle) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         int imagePosition = bundle.getInt(Constants.IMAGE_POSITION_BUNDLE_KEY);
         photos = PhotoHttpApi.photos;
@@ -55,6 +59,12 @@ public class PhotoDetailActivity extends AppCompatActivity implements PageChange
         mUserName = (TextView)findViewById(R.id.user_name);
         mCountry = (TextView)findViewById(R.id.country);
         mUserFollowerCount = (TextView)findViewById(R.id.followers);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp, getTheme()));
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override

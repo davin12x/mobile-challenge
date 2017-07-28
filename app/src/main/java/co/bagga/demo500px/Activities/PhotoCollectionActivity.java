@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,17 +26,25 @@ import co.bagga.demo500px.Utils.PaginationScrollListener;
 public class PhotoCollectionActivity extends AppCompatActivity {
 
     private ImageCollectionAdapter imageCollectionAdapter;
-    private int totalPagesCount = 0;
+    private int totalPagesCount = 1;
     private RecyclerView mImageCollectionRecyclerView;
-    private final String SEARCH_NAME = "bike";
+    private final String SEARCH_NAME = "popular";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_collection);
 
-        setupRecyclerView();
+        prepareViews();
+        isProgressBarVisible(true);
+
         generatePhotoSearchHttpRequest(SEARCH_NAME, Constants.DEFAULT_IMAGE_SIZE, totalPagesCount);
+    }
+
+    private void prepareViews() {
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        setupRecyclerView();
     }
 
     private void setupRecyclerView() {
@@ -56,15 +66,6 @@ public class PhotoCollectionActivity extends AppCompatActivity {
                 return totalPagesCount;
             }
 
-            @Override
-            public boolean isLastPage() {
-                return false;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return false;
-            }
         });
     }
 
@@ -88,6 +89,7 @@ public class PhotoCollectionActivity extends AppCompatActivity {
     public void onPhotoSearchHttpResponseReceived(PhotoSearchHttpResponseEvent event) {
         ArrayList<Photo> photos = PhotoHttpApi.photos;
         imageCollectionAdapter.updateAdapter(photos);
+        isProgressBarVisible(false);
     }
 
     @Override
@@ -96,8 +98,16 @@ public class PhotoCollectionActivity extends AppCompatActivity {
         if (requestCode == Constants.IMAGE_REQUEST_INTENT_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 int imagePosition = data.getIntExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, 0);
-                mImageCollectionRecyclerView.smoothScrollToPosition(imagePosition);
+                mImageCollectionRecyclerView.scrollToPosition(imagePosition);
             }
+        }
+    }
+
+    private void isProgressBarVisible(Boolean isVisible) {
+        if (isVisible) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

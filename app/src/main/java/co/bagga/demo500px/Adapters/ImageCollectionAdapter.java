@@ -18,7 +18,7 @@ import co.bagga.demo500px.Viewholders.ImageCollectionViewHolder;
 
 /**
  * Created by bagga on 2017-07-26.
- *
+ * <p>
  * Adapter to show image collection
  */
 
@@ -45,7 +45,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
                 Context context = holder.itemView.getContext();
                 Intent photoDetailActivity = new Intent(context, PhotoDetailActivity.class);
                 photoDetailActivity.putExtra(Constants.IMAGE_POSITION_BUNDLE_KEY, holder.getAdapterPosition());
-                ((Activity)context).startActivityForResult(photoDetailActivity, Constants.IMAGE_REQUEST_INTENT_CODE);
+                ((Activity) context).startActivityForResult(photoDetailActivity, Constants.IMAGE_REQUEST_INTENT_CODE);
             }
         });
     }
@@ -57,6 +57,6 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
 
     public void updateAdapter(ArrayList<Photo> photoArrayList) {
         this.photoArrayList = photoArrayList;
-        notifyDataSetChanged();
+        notifyItemInserted(photoArrayList.size());
     }
 }
