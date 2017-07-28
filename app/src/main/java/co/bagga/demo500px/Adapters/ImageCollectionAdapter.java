@@ -1,5 +1,7 @@
 package co.bagga.demo500px.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +9,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import co.bagga.demo500px.Activities.PhotoDetailActivity;
 import co.bagga.demo500px.Model.Photo;
 import co.bagga.demo500px.R;
+import co.bagga.demo500px.Utils.Constants;
 import co.bagga.demo500px.Viewholders.ImageCollectionViewHolder;
 
 /**
@@ -32,9 +36,17 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
     }
 
     @Override
-    public void onBindViewHolder(ImageCollectionViewHolder holder, int position) {
+    public void onBindViewHolder(final ImageCollectionViewHolder holder, final int position) {
         holder.updateView(photoArrayList.get(position));
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = holder.itemView.getContext();
+                Intent photoDetailActivity = new Intent(context, PhotoDetailActivity.class);
+                photoDetailActivity.putExtra(Constants.IMAGE_POSITION, position);
+                context.startActivity(photoDetailActivity);
+            }
+        });
     }
 
     @Override

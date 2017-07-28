@@ -4,4 +4,7 @@ public class Constants {
 
     public static final String BASE_URL = "https://api.500px.com/v1/";
     public static final String CONSUMER_KEY_URL = "uKaO1LK8rqYBCNVhnEUSYzqrECw72ZFNUXeHP37u";
+
+    /*Bundle Keys*/
+    public final static String IMAGE_POSITION = "image_position";
 }
