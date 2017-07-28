@@ -15,10 +15,12 @@ import co.bagga.demo500px.Interfaces.HttpCallBack;
 
 public class HttpRequestBuilder {
 
-    public static JsonObjectRequest buildPhotoSearchHttpRequest(String searchName, int imageSize, HttpCallBack httpCallBack) {
+    public static JsonObjectRequest buildPhotoSearchHttpRequest(String searchName, int imageSize, int pageNumber,
+                                                                HttpCallBack httpCallBack) {
         final HttpRequest httpRequest = new HttpRequest();
         httpRequest.setRequestMethod(Request.Method.GET);
-        httpRequest.setUrl(HttpUrlBuilder.buildPhotoSearchUrl(searchName, imageSize));
+        System.out.println(HttpUrlBuilder.buildPhotoSearchUrl(searchName, imageSize, pageNumber));
+        httpRequest.setUrl(HttpUrlBuilder.buildPhotoSearchUrl(searchName, imageSize, pageNumber));
         return buildJsonRequest(httpRequest, httpCallBack);
     }
 

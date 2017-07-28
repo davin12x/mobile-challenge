@@ -33,9 +33,9 @@ public class PhotoHttpApi {
     private PhotoHttpApi() {
     }
 
-    public void buildSearchPhotoRequest(String searchName, int imageSize) {
+    public void buildSearchPhotoRequest(String searchName, int imageSize, int pageNumber) {
         VolleyRequest.getInstance(context).addToVolleyRequestQueue(HttpRequestBuilder
-                .buildPhotoSearchHttpRequest(searchName, imageSize, new HttpCallBack() {
+                .buildPhotoSearchHttpRequest(searchName, imageSize, pageNumber, new HttpCallBack() {
                     @Override
                     public void onHttpRequestResponse(String response, Boolean isSuccess) {
                         MainPhoto mainPhoto = new Gson().fromJson(response, MainPhoto.class);

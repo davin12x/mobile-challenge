@@ -26,6 +26,7 @@ public class PhotoCollectionActivity extends AppCompatActivity {
     private ImageCollectionAdapter imageCollectionAdapter;
     private int totalPagesCount = 0;
     private RecyclerView mImageCollectionRecyclerView;
+    private final String SEARCH_NAME = "bike";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class PhotoCollectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo_collection);
 
         setupRecyclerView();
-        generatePhotoSearchHttpRequest("bike", 5);
+        generatePhotoSearchHttpRequest(SEARCH_NAME, Constants.DEFAULT_IMAGE_SIZE, totalPagesCount);
     }
 
     private void setupRecyclerView() {
@@ -47,7 +48,7 @@ public class PhotoCollectionActivity extends AppCompatActivity {
             @Override
             protected void loadMoreItems() {
                 totalPagesCount += 1;
-                generatePhotoSearchHttpRequest("bike", 5);
+                generatePhotoSearchHttpRequest(SEARCH_NAME, Constants.DEFAULT_IMAGE_SIZE, totalPagesCount);
             }
 
             @Override
@@ -67,8 +68,8 @@ public class PhotoCollectionActivity extends AppCompatActivity {
         });
     }
 
-    private void generatePhotoSearchHttpRequest(String searchName, int imageSize) {
-        PhotoHttpApi.getInstance(this).buildSearchPhotoRequest(searchName, imageSize);
+    private void generatePhotoSearchHttpRequest(String searchName, int imageSize, int pageNumber) {
+        PhotoHttpApi.getInstance(this).buildSearchPhotoRequest(searchName, imageSize, pageNumber);
     }
 
     @Override

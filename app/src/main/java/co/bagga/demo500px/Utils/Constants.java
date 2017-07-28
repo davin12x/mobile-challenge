@@ -10,4 +10,7 @@ public class Constants {
 
     /*Intent Codes*/
     public final static int IMAGE_REQUEST_INTENT_CODE = 100;
+
+    /*Download image size*/
+    public final static int DEFAULT_IMAGE_SIZE = 5;
 }
