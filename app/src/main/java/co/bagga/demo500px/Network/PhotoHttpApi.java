@@ -42,7 +42,7 @@ public class PhotoHttpApi {
                         if (mainPhoto.getPhotos() != null) {
                             Collections.addAll(photos, mainPhoto.getPhotos());
                         }
-                        EventBus.getDefault().post(new PhotoSearchHttpResponseEvent());
+                        EventBus.getDefault().post(new PhotoSearchHttpResponseEvent(isSuccess));
                     }
                 }));
     }

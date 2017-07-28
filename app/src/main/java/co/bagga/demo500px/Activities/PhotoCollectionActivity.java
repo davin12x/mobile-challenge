@@ -87,8 +87,10 @@ public class PhotoCollectionActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPhotoSearchHttpResponseReceived(PhotoSearchHttpResponseEvent event) {
-        ArrayList<Photo> photos = PhotoHttpApi.photos;
-        imageCollectionAdapter.updateAdapter(photos);
+        if (event.responseStatus) {
+            ArrayList<Photo> photos = PhotoHttpApi.photos;
+            imageCollectionAdapter.updateAdapter(photos);
+        }
         isProgressBarVisible(false);
     }
 

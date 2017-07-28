@@ -7,4 +7,9 @@ package co.bagga.demo500px.Events;
  */
 
 public class PhotoSearchHttpResponseEvent {
+    public Boolean responseStatus;
+
+    public PhotoSearchHttpResponseEvent(Boolean responseStatus) {
+        this.responseStatus = responseStatus;
+    }
 }
