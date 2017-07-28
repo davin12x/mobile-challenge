@@ -12,7 +12,6 @@ public class Photo {
     private int votes_count;
     private Image[] images;
 
-
     public String getName() {
         return name;
     }
